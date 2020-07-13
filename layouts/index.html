@@ -1,8 +1,16 @@
 {{ define "main" }}
     <main aria-role="main">
+<<<<<<< HEAD
         <!-- <div> -->
             <h1>{{ .Site.Title }}</h1>
+=======
+        <div>
+            {{ if .Site.Params.Portrait.Path }}
+               <img src="{{ .Site.Params.Portrait.Path }}" class="circle" alt="{{ .Site.Params.Portrait.Alt }}" style="max-width:{{ .Site.Params.Portrait.MaxWidth }}" />
+            {{ end }}
+>>>>>>> 257ecebbb3af15096bf54abe56801b4709d053a5
 
+            <h1>{{ .Site.Title }}</h1>
             {{- with .Site.Params.homeSubtitle }}
                 <p>{{.}}</p>
             {{- end }}
