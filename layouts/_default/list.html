@@ -12,6 +12,8 @@
 
                 <ul class="posts-list">
                     {{- range .Pages }}
+                    {{ if eq .File.LogicalName "about.md" }}
+                    {{else}}          
                         <li class="post-item">
                             <a href="{{.Permalink}}">
                                 <span class="post-title">{{.Title}}</span>
@@ -24,6 +26,7 @@
                                 </span>
                             </a>
                         </li>
+                    {{end }}
                     {{- end }}
                 </ul>
             </div>
