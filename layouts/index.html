@@ -1,6 +1,6 @@
 {{ define "main" }}
     <main aria-role="main">
-        <div>
+        <!-- <div> -->
             <h1>{{ .Site.Title }}</h1>
 
             {{- with .Site.Params.homeSubtitle }}
@@ -12,6 +12,62 @@
                     {{ partial "social-icons.html" . }}
                 </div>
             {{- end }}
-        </div>
+                <!-- </div> -->
     </main>
-{{ end }}
+    <main class="posts">
+
+Hello! I'm Luciano.                  
+
+I'm currently a second year student in the M.S. program for computer science at
+        <a href="https://www.usf.edu/engineering/cse/"> USF</a>.
+        A PDF version of my resume is 
+        <a href="resume.pdf">available</a> as well.
+        <h2 id="recent-blog-posts">Recent blog posts:</h2>   
+        {{- if .Content }}
+            <div class="content">{{ .Content }}</div>
+        {{- end }}
+
+                {{ $counter := 0 }}                 
+        {{- range .Site.RegularPages.GroupByDate "2006" }}
+            <div class="posts-group">
+                        {{ if lt $counter 3 }}
+                <div class="post-year">{{ .Key }}</div>
+                <ul class="posts-list">
+                {{ range where .Pages "File.Dir" "in" "/posts/" }}
+                    {{ if eq .File.LogicalName "about.md" }}
+                    {{else}}          
+                            <li class="post-item">
+                                    <a href="{{.Permalink}}">
+                                        <span class="post-title">{{.Title}}</span>
+                                        <span class="post-day">
+                                            {{ if .Site.Params.dateformShort }}
+                                                {{ .Date.Format .Site.Params.dateformShort }}
+                                            {{ else }}
+                                                {{ .Date.Format "Jan 2"}}
+                                            {{ end }}
+                                        </span>
+                                    </a>
+                                </li>
+                                {{ $counter = add $counter 1 }}   
+                    {{end}}
+                    {{- end }}
+                </ul>
+                        {{end}}       
+            </div>
+        {{- end }}
+            Full listing of blog posts can be found 
+        {{ range .Site.Menus.main -}}
+            <a href="{{ .URL | absLangURL }}">here</a>.
+        {{- end }}
+    <h2>CV:</h2>                      
+        {{- range .Site.RegularPages.GroupByDate "2006" }}
+                {{ range where .Pages "File.Dir" "in" "/posts/" }}
+                    {{ if eq .File.LogicalName "about.md" }}
+                        <article>
+                        {{.Content}}                      
+                        </article>
+                {{end}}
+        {{- end }}
+    </main>                           
+    {{- end }}                        
+{{ end }}                             
