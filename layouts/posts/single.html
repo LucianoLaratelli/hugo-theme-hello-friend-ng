@@ -31,7 +31,7 @@
             {{ with .Params.Cover }}
                 <img src="/img/{{ . }}" class="post-cover" />
             {{ end }}
-
+                {{ .TableOfContents }}
             <div class="post-content">
                 {{ .Content }}
             </div>
